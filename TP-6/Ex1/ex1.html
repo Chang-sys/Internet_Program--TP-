@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination (infinite scroll)</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 70%;
+            height: 85vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border: 10px solid black;
+            overflow: hidden;
+        }
+
+        #id {
+            width: 10%;
+            text-align: center;
+            height: 85vh;
+            font-weight: 700;
+            font-size: 80px;
+        }
+
+        #scrollable-wrapper {
+            width: 100%;
+            height: 700px;
+            padding: 10px;
+            overflow-y: scroll;
+            background-color: lightgray;
+            border-radius: 6px;
+        }
+
+        #item {
+            width: 99%;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background-color: white;
+        }
+
+        .country{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .city{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        #companyName{
+            font-weight: 700;
+            font-size: 30px;
+            width: 100%;
+        }
+
+        #cityName{
+            font-size: 30px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div id="id">
+            1
+        </div>
+
+        <div id="scrollable-wrapper">
+            <div id="item">
+                <div class="country">
+                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="companyName">Emirate-Dubai</div>
+                </div>
+                <div class="city">
+                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="cityName">Pedro</div>
+                </div>
+            </div>
+
+            <div id="item">
+                <div class="country">
+                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="companyName">Emirate-Dubai</div>
+                </div>
+                <div class="city">
+                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="cityName">Pedro</div>
+                </div>
+            </div>
+
+            <div id="item">
+                <div class="country">
+                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="companyName">Emirate-Dubai</div>
+                </div>
+                <div class="city">
+                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="cityName">Pedro</div>
+                </div>
+            </div>
+
+            <div id="item">
+                <div class="country">
+                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="companyName">Emirate-Dubai</div>
+                </div>
+                <div class="city">
+                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="cityName">Pedro</div>
+                </div>
+            </div>
+
+            <div id="item">
+                <div class="country">
+                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="companyName">Emirate-Dubai</div>
+                </div>
+                <div class="city">
+                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="cityName">Pedro</div>
+                </div>
+            </div>
+
+            <div id="item">
+                <div class="country">
+                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="companyName">Emirate-Dubai</div>
+                </div>
+                <div class="city">
+                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span style="font-size: 30px; padding: 5px;">:</span>
+                    <div id="cityName">Pedro</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let scrollerEle = document.getElementById("scrollable-wrapper");
+        let pageNumber = document.getElementById("id");
+
+        let pageNum = 0;
+        let loading = false;
+
+        function fetchAPI(pageNum) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // const data = {
+                    //     0: ["a", "b", "c", "d", "e"],
+                    //     1: ["f", "g", "h", "i"],
+                    //     2: ["j", "k", "L", "M"],
+                    // }
+                    fetch(`https://api.instantwebtools.net/v1/passenger?page=1&size=10`)
+                        .then(async (res) => {
+                            const data = await res.json();
+                        })
+                    resolve(data[pageNum]);
+                }, 2000);
+            });
+        }
+
+        function onFetch(){
+            loading = true;
+            fetchAPI(pageNum).then((data) =>{
+                pageNumber.innerHTML = pageNum;
+                console.log(pageNum);
+                console.log(data);
+
+                //render HTML page
+                loading = false;
+                pageNum++;
+            })
+        }
+
+
+        scrollerEle.addEventListener("scroll", (event) => {
+            if (scrollerEle.scrollTop + scrollerEle.clientHeight >= (scrollerEle.scrollHeight * 0.95)) {
+                // to fetch next page from API server
+                if(!loading) onFetch();
+            }
+        });
+
+        onFetch();
+    </script>
+
+</body>
+
+</html>
