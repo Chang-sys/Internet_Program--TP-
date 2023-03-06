@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagination (infinite scroll)</title>
+    <title>Local data sync</title>
 
     <style>
         * {
@@ -141,7 +141,9 @@
 
     <div class="container">
 
-        <div id="id"></div>
+        <div id="id">
+            1
+        </div>
 
         <div id="scrollable-wrapper">
             <div class="lds-ring" id="loading">
@@ -162,18 +164,54 @@
         dataLoading = false;
         let pageNum = 0;
 
+        if (!localStorage.getItem("myPage")) {
+            localStorage.setItem("myPage", 0);
+        }
+
         const onFetch = (page) => {
             dataLoading = true;
             console.log("Page " + pageNum);
             pageEle.innerHTML = pageNum;
-            fetch(`https://api.instantwebtools.net/v1/passenger?page=${page}&size=10`)
-                .then(async (response) => {
-                    let arrData = await response.json();
-                    let data = arrData.data
 
-                    data.forEach(item => {
-                        EleData +=
-                            `<div id="item">
+            if (localStorage.getItem("myPage") > pageNum) {
+                let data = localStorage.getItem(`myPage${pageNum}`);
+                let myLocalData = JSON.parse(data);
+
+                myLocalData.forEach(item => {
+                    EleData +=
+                        `<div id="item">
+                                <div class="country">
+                                    <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span
+                                        style="font-size: 30px; padding: 5px;">:</span>
+                                    <div id="companyNameWrapper">
+                                        <div id="companyName">${item.airline[0].name}</div> <span>-</span>
+                                        <div id="countryName">${item.airline[0].country}</div>
+                                    </div>
+                                </div>
+                                <div class="city">
+                                    <img src="./emoji.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span
+                                        style="font-size: 30px; padding: 5px;">:</span>
+                                    <div id="cityName">${item["name"]}</div>
+                                </div>
+                        </div>`;
+                });
+
+                scrollerEle.innerHTML = EleData;
+                pageNum++;
+                dataLoading = false;
+
+            } else {
+
+                fetch(`https://api.instantwebtools.net/v1/passenger?page=${page}&size=10`)
+                    .then(async (response) => {
+                        let arrData = await response.json();
+                        let data = arrData.data
+
+                        localStorage.setItem(`myPage${page}`, JSON.stringify(data));
+
+                        data.forEach(item => {
+                            EleData +=
+                                `<div id="item">
                                 <div class="country">
                                     <img src="./airplane.png" style="width: 30px; height: 30px; padding: 10px 0px 5px 10px;"><span
                                         style="font-size: 30px; padding: 5px;">:</span>
@@ -188,24 +226,27 @@
                                     <div id="cityName">${item["name"]}</div>
                                 </div>
                             </div>`;
-                    });
+                        });
 
-                    scrollerEle.innerHTML = EleData;
-                    pageNum++;
-                    dataLoading = false;
-                }).then(() => {
-                    scrollerEle.addEventListener("scroll", (event) => {
-                        const { scrollTop, clientHeight, scrollHeight } = scrollerEle;
-                        if ((clientHeight + scrollTop) >= scrollHeight * 0.95) {
-                            if (!dataLoading) {
-                                onFetch(pageNum);
-                            }
-                        }
+                        scrollerEle.innerHTML = EleData;
+                        pageNum++;
+                        dataLoading = false;
                     });
-                });
+            }
+
+            scrollerEle.addEventListener("scroll", (event) => {
+                const { scrollTop, clientHeight, scrollHeight } = scrollerEle;
+                if ((clientHeight + scrollTop) >= scrollHeight * 0.95) {
+                    if (!dataLoading) {
+                        onFetch(pageNum);
+                    }
+                }
+            });
         }
 
         onFetch(pageNum);
     </script>
+
 </body>
+
 </html>
