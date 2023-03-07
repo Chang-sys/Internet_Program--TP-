@@ -107,10 +107,10 @@
             width: 64px;
             height: 64px;
             margin: 8px;
-            border: 8px solid lightblue;
+            border: 8px solid black;
             border-radius: 50%;
             animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-            border-color: lightblue transparent transparent transparent;
+            border-color: black transparent transparent transparent;
         }
 
         .lds-ring div:nth-child(1) {
@@ -160,20 +160,21 @@
 
         let scrollerEle = document.getElementById("scrollable-wrapper");
         let pageEle = document.getElementById("id");
-        let EleData = "";
+        
         dataLoading = false;
         let pageNum = 0;
 
-        if (!localStorage.getItem("myPage")) {
-            localStorage.setItem("myPage", 0);
+        if (!localStorage.getItem("tmpPage")) {
+            localStorage.setItem("tmpPage", 0);
         }
 
+        let EleData = "";
         const onFetch = (page) => {
             dataLoading = true;
             console.log("Page " + pageNum);
             pageEle.innerHTML = pageNum;
 
-            if (localStorage.getItem("myPage") > pageNum) {
+            if (localStorage.getItem("tmpPage") > pageNum) {
                 let data = localStorage.getItem(`myPage${pageNum}`);
                 let myLocalData = JSON.parse(data);
 
@@ -230,6 +231,7 @@
 
                         scrollerEle.innerHTML = EleData;
                         pageNum++;
+                        localStorage.setItem(`tmpPage`, pageNum);
                         dataLoading = false;
                     });
             }
