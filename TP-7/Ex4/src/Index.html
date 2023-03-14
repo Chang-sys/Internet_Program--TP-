@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Time Library with Typescriptent</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 65%;
+            height: 89vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 10px solid black;
+            box-shadow: inset 0 2px 4px 0 rgba(11, 10, 10, 0.05);
+        }
+
+        .image {
+            width: 200px;
+            height: 200px;
+        }
+
+        .title {
+            margin: 30px;
+            font-size: 60px;
+            font-family: 'Irish Grover', cursive;
+        }
+
+        #datetTimeLocal {
+            width: 480px;
+            height: 50px;
+            font-size: 30px;
+            text-indent: 30px;
+            background-color: #f3f4f6;
+        }
+
+        #khmerDateTimeLocal {
+            font-size: 70px;
+            margin: 50px;
+            color: #f97316;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img class="image" src="https://emojigraph.org/media/emojidex/eight-oclock_1f557.png">
+        <p class="title">Khmer Past Time</p>
+        <input type="datetime-local" id="datetTimeLocal">
+        <p id="khmerDateTimeLocal"></p>
+    </div>
+
+    <script type="module">
+
+       import { KhmerDate } from './lib/dateTimeChecker.js';
+
+        var date_input = document.getElementById('datetTimeLocal');
+        
+        date_input.onchange = function () {
+
+            const in_date = new Date(this.value);
+            const inputDate = new KhmerDate(new Date(in_date.getTime()));
+
+            console.log(inputDate.getRelativeTime());
+            console.log(inputDate.getDate());
+            console.log(Date.now());
+
+            document.getElementById('khmerDateTimeLocal').innerHTML = inputDate.getRelativeTime();
+            console.log(this.value);
+        }
+    </script>
+
+</body>
+
+</html>

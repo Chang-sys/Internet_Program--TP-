@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Detail</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        #wrapper {
+            width: 50%;
+            height: 93vh;
+            display: flex;
+            flex-direction: column;
+            border: 10px solid black;
+        }
+
+        #book-detail {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            background-color: darkgray;
+        }
+
+        #title {
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            color: white;
+            font-size: 50px;
+            font-weight: 600;
+        }
+
+        #id {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        #text {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        #thumbnail {
+            width: 150px;
+            height: 150px;
+        }
+
+        #bookElememt {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #idBook {
+            font-size: 50px;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body onload="getBookDetails()">
+
+    <div id="wrapper">
+
+        <div id="book-detail">
+            <p id="title"></p>
+            <p id="id"></p>
+            <p id="text">Reize the brower window to see that the page is responsive by the way.</p>
+        </div>
+
+        <div id="bookElememt">
+            <div id="idBook"></div>
+            <img id="thumbnail" src="" alt="">
+        </div>
+    </div>
+    <script>
+        // const bookField = document.getElementById('bookList');
+        // const addButton = document.getElementById('btn-add');
+        // const loadingRing = document.getElementById('loading-ring');
+
+        // function getBookList() {
+        //     loadingRing.hidden = false;
+
+        //     fetch('https://jsonplaceholder.typicode.com/photos')
+        //         .then(async (response) => {
+        //             let data = await response.json();
+
+        //             let bookitem = "";
+        //             data.forEach((item) => {
+        //                 bookitem +=
+        //                     `<div id="item">
+        //                         <canvas id="thumbnail" style="background-image: url(${item.thumbnailUrl});"></canvas>
+        //                         <p id="bookName">${item.title}</p>
+        //                         <p id="ablumId">Album id: ${item.albumId}</p>
+        //                         <p id="cate">Category: ${item.id}</p>
+        //                         <a id="bookID" href="http://localhost:3000/detail" target="_blank" value="${item.id}">See</a>
+        //                     </div>`;
+        //             })
+
+        //             bookField.innerHTML = bookitem;
+
+        //             console.log(data);
+
+        //         }).catch((error) => {
+        //             console.log(error);
+        //         }).finally(() => {
+        //             loadingRing.hidden = true;
+        //         });
+        // }
+
+        // Book detail
+        let bookDetail = document.getElementById('wrapper');
+
+        function getBookDetails() {
+
+            const values = window.location.search;
+            const params = new URLSearchParams(values);
+            const BookId = params.get("id");
+
+            fetch(`https://jsonplaceholder.typicode.com/photos/${BookId}`)
+                .then(async (response) => {
+                    let data = await response.json();
+
+                    document.getElementById('title').innerHTML = data.title;
+                    document.getElementById('id').innerHTML = data.albumId;
+                    document.getElementById('idBook').innerHTML = data.albumId;
+                    document.getElementById('thumbnail').src = data.thumbnailUrl;
+
+                    console.log(data);
+                }).catch((error) => {
+                    console.log(error);
+                })
+        }
+    </script>
+</body>
+
+</html>
