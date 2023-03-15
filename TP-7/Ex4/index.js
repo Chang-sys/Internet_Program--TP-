@@ -3,7 +3,7 @@ const express = require('express');
 const fs = require('fs');
 
 const app = express();
-app.use(express.static('src/ex4'));
+app.use(express.static('./src'));
 
 // Serve the index.html file on GET request to the root URL
 app.get('/', (req, res) => {
