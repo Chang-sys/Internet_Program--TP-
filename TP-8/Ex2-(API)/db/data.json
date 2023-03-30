@@ -1,0 +1,44 @@
+[
+    {
+        "email": "Leng@gmail.com",
+        "username": "Leng",
+        "firstname": "Sok",
+        "lastname": "Leng",
+        "password": "123"
+    },
+    {
+        "email": "chang@gmail.com",
+        "username": "chang",
+        "firstname": "chang",
+        "lastname": "chheng",
+        "password": "123"
+    },
+    {
+        "email": "admin@gmail.com",
+        "username": "admin",
+        "firstname": "admin",
+        "lastname": "admin",
+        "password": "admin"
+    },
+    {
+        "email": "long@gmail.com",
+        "username": "long",
+        "firstname": "long",
+        "lastname": "long",
+        "password": "long123"
+    },
+    {
+        "email": "ben@gmail.com",
+        "username": "ben",
+        "firstname": "ben",
+        "lastname": "ben",
+        "password": "222222"
+    },
+    {
+        "email": "Kim@gmail.com",
+        "username": "kim",
+        "firstname": "kim",
+        "lastname": "Hong",
+        "password": "kimhong"
+    }
+]
