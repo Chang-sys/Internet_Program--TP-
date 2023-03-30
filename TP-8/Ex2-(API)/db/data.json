@@ -40,5 +40,19 @@
         "firstname": "kim",
         "lastname": "Hong",
         "password": "kimhong"
+    },
+    {
+        "email": "Boy@gmail.com",
+        "username": "Boy",
+        "firstname": "loy",
+        "lastname": "boy",
+        "password": "123"
+    },
+    {
+        "email": "Nana@gmail.com",
+        "username": "Nana",
+        "firstname": "Kim",
+        "lastname": "Nana",
+        "password": "12345"
     }
 ]

@@ -102,7 +102,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-  margin: 0 0 0 60px;
+  /* margin: 0 0 0 60px; */
 }
 
 @media (min-width: 1529px) {
