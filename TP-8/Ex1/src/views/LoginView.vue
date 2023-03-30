@@ -82,7 +82,7 @@ export default {
         autocorrect="off" />
 
       <label class="pass" for="password">Password</label>
-      <input class="password" ref="password" type="password" placeholder="******" />
+      <input class="password" ref="password" type="password" placeholder="***********" />
 
       <div class="homeView">
         <button id="btn-logIn" ref="login" type="submit" @click="userLogin()">
@@ -109,6 +109,7 @@ export default {
 }
 
 header {
+  margin-left: 150px;
   line-height: 1.5;
   max-height: 100vh;
 }
@@ -280,6 +281,7 @@ input[type=password]:focus {
 }
 
 .forgetPwd{
+  color: black;
   font-size: 16px;
   display: flex;
   margin: 10px 0 10px 0;

@@ -8,7 +8,7 @@ export default {
 
 <template>
   <div class="content">
-    <header>
+    <div class="headerHome">
       <div class="logo-wrapper">
         <img src="https://gic.itc.edu.kh/img/logo.png" alt="" class="imageLogo">
         <h2 class="textLogo">GIC</h2>
@@ -16,8 +16,8 @@ export default {
       <nav class="navigation">
         <a href="#">ABOUT</a>
         <a href="#">ACADEMICS</a>
-        <a href="#">WHY GIC</a>
-        <a href="#">LIFE GIC</a>
+        <a href="#">WHY&nbsp;GIC</a>
+        <a href="#">LIFE&nbsp;GIC</a>
         <a href="#">ACADEMICS</a>
         <a href="#">CONTACT</a>
         <div class="searchBar">
@@ -34,7 +34,7 @@ export default {
           </button>
         </RouterLink>
       </nav>
-    </header>
+    </div>
 
     <div class="body-wrapper">
       <div class="left-content">
@@ -102,14 +102,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  margin: 0 0 0 60px;
 }
 
-header {
+.headerHome {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* column-gap: 60px; */
 }
 
 .logo-wrapper {
@@ -137,6 +137,7 @@ header {
 }
 
 .navigation {
+  margin: 0 0 0 40px;
   width: fit-content;
   display: flex;
   flex-direction: row;
@@ -187,13 +188,13 @@ header {
 }
 
 .searchBar {
-  width: 58px;
-  margin: 0 0 0 50px;
+  width: 46px;
+  margin: 0 0px 0 50px;
 }
 
 .verticalLine {
   width: 3px;
-  height: 39px;
+  height: 46px;
   background-color: black;
 }
 
