@@ -30,3 +30,9 @@ a,
     /* padding: 0 1rem; */
   }
 }
+
+@media (min-width: 1529px) {
+  #app{
+    margin-left: 220px;
+  }
+}

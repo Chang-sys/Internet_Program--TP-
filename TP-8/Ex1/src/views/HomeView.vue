@@ -105,6 +105,12 @@ export default {
   margin: 0 0 0 60px;
 }
 
+@media (min-width: 1529px) {
+  .content{
+    margin: 0 0 0 200px;
+  }
+}
+
 .headerHome {
   width: 100%;
   display: flex;
