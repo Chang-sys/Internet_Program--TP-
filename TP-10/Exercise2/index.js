@@ -22,7 +22,7 @@ app.use(cors(
 ));
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.text())
+app.use(bodyParser.json())
 
 // connect to mongod server
 require('./src/config/conntectDB')()

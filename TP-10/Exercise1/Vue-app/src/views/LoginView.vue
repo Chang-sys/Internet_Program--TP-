@@ -13,22 +13,27 @@ export default {
     }
   },
   methods: {
-    async login() {
-      await fetch('http://localhost:3001/login', {
+    async login(e) {
+      e.preventDefault();
+      const res = await fetch('http://localhost:3001/login', {
         method: 'POST',
-        credentials: "include",
+        credentials: "include", //allow cookies to store in browser
+        headers: {
+          "content-type": "application/JSON",
+        },
         body: JSON.stringify({
-          "email": this.email,
-          "password": this.password
+          email: this.email,
+          password: this.password
         })
-      }).then(res => {
-        return res.json();
-      }).then((data) => {
-        console.log(data);
-        if (data.success == true) {
-          this.$router.push({ name: 'home' })
-        }
-      })
+      });
+
+      const result = await res.json();
+      if(!result.success) {
+        alert(result.error);
+        return;
+      }
+
+      this.$router.push({name: "home"})
     }
   }
 }
@@ -51,7 +56,7 @@ export default {
   <div class="login-wrapper">
     <img class="user-profile" alt="userProfile" src="../assets/user_profile.png">
 
-    <form id="login">
+    <form id="login" @submit="login">
 
       <label class="name" for="email">Username</label>
       <input class="email" required="login[email]" type="text" id="email" v-model="email" placeholder="Enter Email"
@@ -61,7 +66,7 @@ export default {
       <input class="password" id="password" v-model="password" type="password" placeholder="***********" />
 
       <div class="homeView">
-        <button id="btn-logIn" type="submit" @click="login">
+        <button id="btn-logIn" type="submit">
           login
         </button>
       </div>

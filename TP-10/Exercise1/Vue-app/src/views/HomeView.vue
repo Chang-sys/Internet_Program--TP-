@@ -3,17 +3,13 @@ export default {
   name: "HomeView",
   data: {
     returns: {
-      isLogin: false,
+      firstname: "",
+      lastname: "",
+      email: "",
     }
   },
-  computed: {
-    username() {
-      if (this.isLogin) {
-        const token = localStorage.getItem('token');
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        return payload.username;
-      }
-    },
+  async mounted(){
+
   },
   methods: {
     async logout() {

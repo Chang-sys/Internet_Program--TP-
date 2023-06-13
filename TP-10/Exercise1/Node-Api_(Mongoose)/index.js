@@ -5,24 +5,28 @@ var session = require('express-session')
 var cookieParser = require('cookie-parser')
 
 var app = express()
-const oneHour = 1000*60*60;
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 app.use(session({
     secret: "Your-name",
     saveUninitialized: true,
     cookie: {maxAge: oneHour},
     resave: false,
-    name: "token"
+    name: "token",
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2, // 2 hours
+      secure: false,
+    }
 }))
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(cors(
   {
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3030', 
+    credentials: true,
   }
 ));
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.text())
 
 // connect to mongod server
 require('./src/config/conntectDB')()
